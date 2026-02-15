@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium 5K Album | @MalDev</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #ffdf00;
+            --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 215, 0, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* PRELOADER */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: 1s ease;
+        }
+        .preloader-logo {
+            font-size: 2.5rem; font-weight: 800; background: var(--gold-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: pulse-gold 2s infinite;
+        }
+
+        /* GOLD SPARKLE EFFECT */
+        .gold-sparkle {
+            position: fixed; width: 4px; height: 4px; background: var(--gold);
+            border-radius: 50%; pointer-events: none; opacity: 0;
+            animation: sparkle-move linear forwards; z-index: 0;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 1; }
+        
+        header { text-align: center; margin-bottom: 50px; }
+        .logo-wrapper {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--glass); padding: 12px 24px; border-radius: 100px;
+            border: 1px solid var(--border); backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.15); margin-bottom: 20px;
+        }
+        .v-badge { width: 20px; fill: #38bdf8; }
+
+        h1 { 
+            font-weight: 800; font-size: 2.5rem; letter-spacing: -1px; 
+            background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .upload-card {
+            background: var(--glass); border: 1px solid var(--border);
+            backdrop-filter: blur(20px); padding: 40px; border-radius: 30px;
+            text-align: center; margin-bottom: 50px;
+        }
+
+        .btn-upload {
+            background: var(--gold-gradient); color: #000; border: none;
+            padding: 18px 45px; border-radius: 15px; font-weight: 800;
+            cursor: pointer; transition: 0.4s; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(255, 223, 0, 0.2);
+        }
+        .btn-upload:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
+
+        /* GALLERY GRID */
+        .gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+            gap: 15px; 
+        }
+        
+        .photo-item {
+            position: relative; border-radius: 15px; overflow: hidden; aspect-ratio: 1/1;
+            background: #111; border: 1px solid var(--border); transition: 0.4s ease;
+        }
+        
+        .photo-item:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        
+        .photo-item img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            opacity: 0; transition: opacity 0.5s; /* Untuk effect fade-in saat load */
+        }
+        
+        .photo-item img.loaded { opacity: 1; }
+
+        .del-btn {
+            position: absolute; top: 10px; right: 10px; background: rgba(255, 0, 0, 0.7);
+            border: none; width: 28px; height: 28px; border-radius: 8px; color: white; cursor: pointer;
+            opacity: 0; transition: 0.3s; z-index: 10;
+        }
+        .photo-item:hover .del-btn { opacity: 1; }
+
+        /* ANIMATIONS */
+        @keyframes pulse-gold { 0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px var(--gold)); } 50% { opacity: 0.6; } }
+        @keyframes sparkle-move {
+            0% { transform: translateY(0) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+        }
+
+        #inner-loader { display: none; margin-top: 20px; font-size: 0.8rem; color: var(--gold); font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div id="preloader">
+    <div class="preloader-logo">@MALDEV</div>
+    <div style="font-size: 0.7rem; letter-spacing: 5px; color: #666; margin-top: 10px;">ULTRA PREMIUM 5K ALBUM</div>
+</div>
+
+<div class="container">
+    <header>
+        <div class="logo-wrapper">
+            <span style="font-weight: 800; font-size: 1.1rem; color: var(--gold);">@MALDEV</span>
+            <svg class="v-badge" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <h1>Golden Cloud 5.000</h1>
+        <p id="status" style="color: var(--gold); font-size: 0.9rem; margin-top: 10px; font-weight: 600;">0 / 5000 MEMORIES</p>
+    </header>
+
+    <div class="upload-card">
+        <input type="file" id="inp" accept="image/*" multiple style="display: none;">
+        <button class="btn-upload" onclick="document.getElementById('inp').click()">UPLOAD NEW MEMORIES</button>
+        <div id="inner-loader">PROCESSING SULTAN ASSETS... ⏳</div>
+    </div>
+
+    <div class="gallery" id="gal"></div>
+</div>
+
+<script>
+    let db;
+    const MAX_CAPACITY = 5000;
+
+    // Preloader Logic
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('preloader').style.opacity = '0';
+            setTimeout(() => document.getElementById('preloader').style.display = 'none', 1000);
+        }, 1500);
+        createSparkles();
+    });
+
+    // Gold Sparkles
+    function createSparkles() {
+        setInterval(() => {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'gold-sparkle';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = (Math.random() * 100 + 100) + 'vh';
+            sparkle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 6000);
+        }, 400);
+    }
+
+    // Database
+    const req = indexedDB.open("MalDevSultanDB", 1);
+    req.onupgradeneeded = e => {
+        db = e.target.result;
+        db.createObjectStore("pix", { keyPath: "id", autoIncrement: true });
+    };
+    req.onsuccess = e => { db = e.target.result; render(); };
+
+    // File Processing
+    document.getElementById('inp').onchange = async (e) => {
+        const files = e.target.files;
+        if (files.length === 0) return;
+        
+        document.getElementById('inner-loader').style.display = 'block';
+        
+        for (let file of files) {
+            const base64 = await compress(file);
+            const tx = db.transaction("pix", "readwrite");
+            const store = tx.objectStore("pix");
+            
+            // Cek Kapasitas
+            const countReq = store.count();
+            countReq.onsuccess = () => {
+                if(countReq.result < MAX_CAPACITY) {
+                    store.add({ src: base64 });
+                } else {
+                    alert("Kapasitas Sultan (5000) sudah penuh!");
+                }
+            };
+            
+            await new Promise(r => tx.oncomplete = r);
+        }
+        
+        document.getElementById('inner-loader').style.display = 'none';
+        e.target.value = ""; 
+        render();
+    };
+
+    function compress(file) {
+        return new Promise((res) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (ev) => {
+                const img = new Image();
+                img.src = ev.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const size = 1200; // Resolusi Sultan tetap tajam
+                    let w = img.width, h = img.height;
+                    if (w > h) { h *= size/w; w = size; } else { w *= size/h; h = size; }
+                    canvas.width = w; canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    res(canvas.toDataURL('image/jpeg', 0.75));
+                };
+            };
+        });
+    }
+
+    function render() {
+        const gal = document.getElementById('gal');
+        const tx = db.transaction("pix", "readonly");
+        const store = tx.objectStore("pix");
+        const reqAll = store.getAll();
+
+        reqAll.onsuccess = () => {
+            const data = reqAll.result;
+            document.getElementById('status').innerText = `${data.length} / ${MAX_CAPACITY} MEMORIES`;
+            
+            // Reverse agar yang terbaru di atas
+            const sortedData = data.reverse();
+            
+            gal.innerHTML = sortedData.map(item => `
+                <div class="photo-item">
+                    <img src="${item.src}" onload="this.classList.add('loaded')">
+                    <button class="del-btn" onclick="hapus(${item.id})">✕</button>
+                </div>
+            `).join('');
+        };
+    }
+
+    function hapus(id) {
+        if(confirm("Hapus foto dari Cloud Sultan?")) {
+            const tx = db.transaction("pix", "readwrite");
+            tx.objectStore("pix").delete(id);
+            tx.oncomplete = () => render();
+        }
+    }
+</script>
+
+</body>
+</html>
