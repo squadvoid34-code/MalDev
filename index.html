@@ -1,211 +1,241 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Style Premium Album | @MalDev</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Selamat Hari Raya Idul Fitri, Sayang 🤍</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
     <style>
-        :root {
-            --tg-blue: #0088cc;
-            --tg-premium: linear-gradient(135deg, #665fff, #8128f6, #9724ef);
-            --gold: #d4af37;
-            --gold-light: #fcf6ba;
-            --dark-bg: #0e0e0e;
-            --card-bg: #181818;
-        }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            margin: 0; background-color: var(--dark-bg);
-            background-image: radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 1) 0%, rgba(5, 5, 5, 1) 100%);
-            color: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
-            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+                        url('https://files.catbox.moe/9r232x.jpg') no-repeat center center/cover fixed;
             overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glow { text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff9a9e, 0 0 60px rgba(255,255,255,0.6); }
+
+        /* Loading screen full center */
+        #loading {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
+                        url('https://files.catbox.moe/9r232x.jpg') no-repeat center center/cover fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease-out;
+        }
+        #loading.hidden { opacity: 0; pointer-events: none; }
+
+        .loading-text { text-align: center; }
+        .loading-bar-container {
+            width: 80%;
+            max-width: 320px;
+            height: 10px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, #ff69b4, #ff9a9e, #fad0c4);
+            animation: loading 4s linear forwards;
+        }
+        @keyframes loading { 0% { width: 0%; } 100% { width: 100%; } }
+
+        /* Hearts & Kunang-kunang di depan */
+        .hearts, .fireflies {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 20;
+            overflow: hidden;
+        }
+        .heart { position: absolute; font-size: 1.8rem; animation: fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+        .firefly {
+            position: absolute; width: 9px; height: 9px;
+            background: radial-gradient(circle, #fffb00, #ffcc00, transparent);
+            border-radius: 50%; box-shadow: 0 0 18px #ffcc00;
+            animation: fly 20s infinite ease-in-out; opacity: 0.9;
+        }
+        @keyframes fly {
+            0%,100% { transform: translate(0,0) scale(1); }
+            25% { transform: translate(70px,-60px) scale(1.3); }
+            50% { transform: translate(-50px,90px) scale(0.7); }
+            75% { transform: translate(60px,70px) scale(1.2); }
         }
 
-        /* Background Sparkles */
-        .stars { position: fixed; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        /* Tombol play */
+        #playOverlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            backdrop-filter: blur(8px); transition: opacity 0.5s ease-out;
+        }
+        #playOverlay.hidden { display: none; pointer-events: none; }
+        #playBtn {
+            background: #ff69b4; color: white; font-size: 3.5rem; width: 120px; height: 120px;
+            border-radius: 50%; box-shadow: 0 0 30px rgba(255,105,180,0.8);
+            animation: pulse 2s infinite;
+        }
+        #playBtn:hover { transform: scale(1.15); }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-        .container { width: 90%; max-width: 1000px; padding: 40px 0; z-index: 1; position: relative; }
-
-        /* HEADER @MALDEV TELEGRAM STYLE */
-        .brand-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(255,255,255,0.05); padding: 10px 20px;
-            border-radius: 50px; margin-bottom: 20px; border: 1px solid rgba(255,215,0,0.3);
+        .content-wrapper {
+            position: relative; z-index: 10; padding: 2rem 1rem;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Ikon Telegram Premium Blue Star */
-        .tg-verify {
-            width: 20px; height: 20px;
-            background: var(--tg-blue);
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            display: inline-block; position: relative;
+        .gallery {
+            margin: 3rem 0; width: 100%; max-width: 900px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem; padding: 1rem;
         }
-        .tg-verify::after {
-            content: '✓'; color: white; font-size: 12px; font-weight: bold;
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        .photo-frame {
+            position: relative; overflow: hidden; border-radius: 50% 50% 20% 20%;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            padding: 10px; box-shadow: 0 10px 25px rgba(255,105,180,0.4);
+            transition: all 0.4s ease;
         }
-
-        h1 { 
-            font-size: 2.8rem; font-weight: 800; background: var(--gold-gradient);
-            background: linear-gradient(to bottom, #fff 0%, var(--gold) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 5px 0;
+        .photo-frame:hover { transform: scale(1.08) rotate(3deg); box-shadow: 0 15px 40px rgba(255,105,180,0.6); }
+        .photo-frame img {
+            width: 100%; height: 220px; object-fit: cover;
+            border-radius: 50% 50% 15% 15%; border: 5px solid white;
         }
-
-        /* UPLOAD BUTTON */
-        .btn-upload {
-            background: var(--tg-premium); color: white; border: none;
-            padding: 16px 35px; border-radius: 50px; font-weight: 800;
-            cursor: pointer; text-transform: uppercase; margin: 20px 0;
-            box-shadow: 0 10px 20px rgba(102, 95, 255, 0.3); transition: 0.3s;
+        .photo-frame::before {
+            content: '💕'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            font-size: 2.5rem; animation: float 3s infinite;
         }
-        .btn-upload:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(102, 95, 255, 0.5); }
-
-        /* GALLERY FRAME */
-        .gallery-box {
-            background: var(--card-bg); border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 25px; padding: 25px; margin-top: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-        }
-
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;
-        }
-
-        /* PHOTO CARD */
-        .photo-card {
-            background: #000; border-radius: 15px; overflow: hidden;
-            position: relative; aspect-ratio: 1/1; border: 1px solid #222;
-        }
-        .photo-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .photo-card:hover img { transform: scale(1.1); filter: brightness(0.6); }
-
-        /* Overlay Buttons (Download & Delete) */
-        .card-actions {
-            position: absolute; inset: 0; display: flex; justify-content: center;
-            align-items: center; gap: 15px; opacity: 0; transition: 0.3s; background: rgba(0,0,0,0.4);
-        }
-        .photo-card:hover .card-actions { opacity: 1; }
-
-        .action-btn {
-            width: 40px; height: 40px; border-radius: 10px; border: none;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 18px; transition: 0.2s;
-        }
-        .dl-btn { background: var(--tg-blue); color: white; }
-        .del-btn { background: #ff4757; color: white; }
-        .action-btn:hover { transform: scale(1.1); }
-
-        /* PRELOADER */
-        #loader {
-            position: fixed; inset: 0; background: #000; z-index: 9999;
-            display: flex; justify-content: center; align-items: center; transition: 1s;
-        }
+        @keyframes float { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -10px); } }
     </style>
 </head>
 <body>
 
-<div id="loader">
-    <div style="text-align: center;">
-        <div class="tg-verify" style="width: 40px; height: 40px; margin-bottom: 15px;"></div>
-        <h2 style="color: white; letter-spacing: 5px;">@MALDEV</h2>
-    </div>
-</div>
+    <div class="hearts" id="heartsContainer"></div>
+    <div class="fireflies" id="firefliesContainer"></div>
 
-<div class="container">
-    <header style="text-align: center;">
-        <div class="brand-badge">
-            <span style="font-weight: 800; letter-spacing: 1px;">@MALDEV</span>
-            <div class="tg-verify"></div>
+    <!-- Loading (semua di tengah) -->
+    <div id="loading">
+        <div class="text-center">
+            <div class="text-9xl mb-6 animate-pulse">🤍</div>
+            <h1 class="text-5xl md:text-7xl font-bold glow">عيد مبارك</h1>
+            <p class="text-3xl mt-4">LOADING TUNGGU YAA SAYANG...</p>
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
         </div>
-        <h1>Goldium 5.000</h1>
-        <p id="status" style="color: #666; font-weight: 600;">0 / 5000 MEMORIES</p>
-        
-        <button class="btn-upload" onclick="document.getElementById('fileInp').click()">+ Add Memories</button>
-        <input type="file" id="fileInp" multiple accept="image/*" style="display: none;">
-    </header>
-
-    <div class="gallery-box">
-        <div style="color: var(--gold); font-weight: 800; margin-bottom: 20px; letter-spacing: 2px;">GALLERY</div>
-        <div class="grid" id="galleryGrid"></div>
     </div>
-</div>
 
-<script>
-    let db;
-    const grid = document.getElementById('galleryGrid');
+    <!-- Tombol play -->
+    <div id="playOverlay" class="hidden">
+        <button id="playBtn">💝</button>
+        <p>🌹PENCET TOMBOL INI SAYANG🌹</p>
+    </div>
 
-    // Preloader
-    window.onload = () => {
-        setTimeout(() => {
-            document.getElementById('loader').style.opacity = '0';
-            setTimeout(() => document.getElementById('loader').style.display = 'none', 1000);
-        }, 1500);
-    };
+    <!-- Konten -->
+    <div class="content-wrapper">
+        <div class="max-w-3xl bg-black/40 backdrop-blur-lg p-8 md:p-12 rounded-3xl border border-yellow-500/30 mb-8">
+            <div class="text-8xl md:text-10xl mb-8 animate-pulse">🤍✨</div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight glow">Selamat Hari Raya Idul Fitri, sayang 🤍</h1>
+            <div class="text-xl md:text-2xl leading-relaxed opacity-95">
+                <p class="mb-6">Maaf lahir dan batin yaa. Di hari yang suci ini, aku ingin minta maaf atas semua kesalahan aku, baik yang sengaja maupun yang nggak aku sadari.</p>
+                <p class="mb-6">Terima kasih sudah selalu ada buat aku, sabar ngadepin aku, dan jadi bagian paling indah dalam hidup aku. Semoga hubungan kita makin kuat, penuh berkah, dan selalu dilindungi ke depannya.</p>
+                <p class="mb-6 font-semibold text-yellow-200">Aku bersyukur banget punya kamu. Semoga kita bisa terus bareng, bukan cuma sekarang, tapi juga di masa depan nanti. 🤍✨</p>
+            </div>
+        </div>
 
-    // Database
-    const request = indexedDB.open("MalDevFinalDB", 1);
-    request.onupgradeneeded = e => {
-        db = e.target.result;
-        db.createObjectStore("photos", { keyPath: "id", autoIncrement: true });
-    };
-    request.onsuccess = e => { db = e.target.result; render(); };
+        <div class="gallery">
+            <div class="photo-frame"><img src="https://files.catbox.moe/v885an.jpg" alt="Foto 1"></div>
+            <div class="photo-frame"><img src="https://files.catbox.moe/0euxbx.jpg" alt="Foto 2"></div>
+            <div class="photo-frame"><img src="https://files.catbox.moe/9qmvsd.jpg" alt="Foto 3"></div>
+            <div class="photo-frame"><img src="https://files.catbox.moe/1w2hjh.jpg" alt="Foto 4"></div>
+        </div>
 
-    // Upload & Auto Resize
-    document.getElementById('fileInp').onchange = (e) => {
-        const files = e.target.files;
-        Array.from(files).forEach(file => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = (event) => {
-                const tx = db.transaction("photos", "readwrite");
-                tx.objectStore("photos").add({ src: event.target.result, name: file.name });
-                tx.oncomplete = render;
-            };
-        });
-    };
+        <div class="mt-12 text-lg opacity-80 text-center">
+            Aku buat ini semua cuma untuk kamu sayangg 🫶💗💗<br>Made BY : @Zidan♨️
+        </div>
 
-    function render() {
-        grid.innerHTML = "";
-        const tx = db.transaction("photos", "readonly");
-        const store = tx.objectStore("photos");
-        const req = store.getAll();
-        req.onsuccess = () => {
-            document.getElementById('status').innerText = `${req.result.length} / 5000 MEMORIES`;
-            req.result.reverse().forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'photo-card';
-                div.innerHTML = `
-                    <img src="${item.src}">
-                    <div class="card-actions">
-                        <button class="action-btn dl-btn" onclick="downloadImage('${item.src}', '${item.name}')">⬇</button>
-                        <button class="action-btn del-btn" onclick="hapus(${item.id})">✕</button>
-                    </div>
-                `;
-                grid.appendChild(div);
-            });
-        };
-    }
+        <footer class="mt-12 py-8 text-sm opacity-70 text-center">
+            Lebaran 1446 H • Dari hati buat kamu 🤍
+        </footer>
+    </div>
 
-    // Fungsi Download Foto
-    function downloadImage(base64, name) {
-        const link = document.createElement('a');
-        link.href = base64;
-        link.download = name || "MalDev_Memory.jpg";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+    <audio id="bgMusic" loop muted>
+        <source src="https://files.catbox.moe/oz8roo.mp3" type="audio/mpeg">
+    </audio>
 
-    function hapus(id) {
-        if(confirm("Hapus memori ini?")) {
-            const tx = db.transaction("photos", "readwrite");
-            tx.objectStore("photos").delete(id);
-            tx.oncomplete = render;
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = Math.random() > 0.5 ? '🤍' : '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 7 + 8) + 's';
+            document.getElementById('heartsContainer').appendChild(heart);
+            setTimeout(() => heart.remove(), 16000);
         }
-    }
-</script>
 
+        function createFirefly() {
+            const ff = document.createElement('div');
+            ff.className = 'firefly';
+            ff.style.left = Math.random() * 100 + 'vw';
+            ff.style.top = Math.random() * 100 + 'vh';
+            ff.style.animationDuration = (Math.random() * 15 + 12) + 's';
+            document.getElementById('firefliesContainer').appendChild(ff);
+            setTimeout(() => ff.remove(), 30000);
+        }
+
+        function startAnimations() {
+            setInterval(createHeart, 900);
+            setInterval(createFirefly, 1800);
+        }
+
+        const loading = document.getElementById('loading');
+        const playOverlay = document.getElementById('playOverlay');
+        const playBtn = document.getElementById('playBtn');
+        const audio = document.getElementById('bgMusic');
+
+        audio.volume = 0.35;
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loading.classList.add('hidden');
+                startAnimations();
+
+                audio.play().then(() => {
+                    audio.muted = false;
+                }).catch(() => {
+                    playOverlay.classList.remove('hidden');
+                });
+
+                setTimeout(() => {
+                    if (audio.paused || audio.muted) playOverlay.classList.remove('hidden');
+                }, 400);
+            }, 4200);
+        });
+
+        playBtn.addEventListener('click', () => {
+            audio.muted = false;
+            audio.play().then(() => {
+                playOverlay.classList.add('closing');
+                setTimeout(() => playOverlay.classList.add('hidden'), 500);
+            }).catch(() => {
+                playOverlay.classList.add('closing');
+                setTimeout(() => playOverlay.classList.add('hidden'), 500);
+            });
+        });
+    </script>
 </body>
 </html>
